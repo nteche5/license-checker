@@ -21,7 +21,8 @@ export default function handler(request, response) {
     const clients = {
         "51302912": { start: "2024-01-01", end: "2030-12-31" },
         "23234324": { start: "2023-01-01", end: "2023-02-01" }, // Expired Example
-        "88888888": { start: "2025-01-01", end: "2025-12-31" }  // Future Example
+        "88888888": { start: "2025-01-01", end: "2025-12-31" }, // Future Example
+        "918908":   { start: "2025-01-01", end: "9999-12-31" }  // ADDED: Lifetime Access
     };
 
     // 5. Logic Check
