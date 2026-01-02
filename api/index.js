@@ -5,11 +5,10 @@ export default function handler(request, response) {
 
     // 2. Only allow POST requests
     if (request.method !== 'POST') {
-        return response.status(200).send("failed"); // Fail silently for browsers
+        return response.status(200).send("failed"); 
     }
 
     // 3. Get Account Number
-    // Vercel automatically parses the data sent by MQL
     const account_no = request.body.account_no;
 
     if (!account_no) {
@@ -17,16 +16,20 @@ export default function handler(request, response) {
     }
 
     // 4. CLIENT DATABASE
-    // Add your clients here. Format: 'AccountID': { start: 'YYYY-MM-DD', end: 'YYYY-MM-DD' }
+    // "start" is set to 2020 to ensure it covers past dates if you backtest historically.
+    // "end" is set to 9999 (Non-Expiry).
     const clients = {
         "51302912": { start: "2024-01-01", end: "2030-12-31" },
-        "23234324": { start: "2023-01-01", end: "2023-02-01" }, // Expired Example
-        "88888888": { start: "2025-01-01", end: "2025-12-31" }, // Future Example
-        "918908":   { start: "2025-01-01", end: "9999-12-31" }  // ADDED: Lifetime Access
+        "918908":   { start: "2023-01-01", end: "9999-12-31" }, // Your previous account
+        
+        // NEW PEPPERSTONE ACCOUNT FROM SCREENSHOT
+        "61443571": { start: "2020-01-01", end: "9999-12-31" } 
     };
 
     // 5. Logic Check
-    const today = new Date().toISOString().split('T')[0]; // Get Today's Date
+    // Note: This checks the SERVER'S real date. 
+    // Since the server date is likely 2024/2025 and the end date is 9999, it returns success.
+    const today = new Date().toISOString().split('T')[0]; 
 
     if (clients[account_no]) {
         const user = clients[account_no];
